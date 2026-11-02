@@ -133,7 +133,7 @@ class Handler(BaseHTTPRequestHandler):
             if not s:return self.respond(401,{'error':'Bitte melde dich an.'})
             if path=='/api/state':return self.respond(200,{'state':read_state(s['user']['id'])})
             return self.respond(404,{'error':'Nicht gefunden.'})
-        files={'/':('index.html','text/html'),'/index.html':('index.html','text/html'),'/styles.css':('styles.css','text/css'),'/app.js':('app.js','application/javascript'),'/assets/logo.png':('assets/logo.png','image/png')}
+        files={'/':('index.html','text/html'),'/index.html':('index.html','text/html'),'/styles.css':('styles.css','text/css'),'/app.js':('app.js','application/javascript'),'/assets/timewerk-logo.png':('assets/timewerk-logo.png','image/png')}
         if path not in files:return self.respond(404,{'error':'Nicht gefunden.'})
         name,mime=files[path];raw=(ROOT/name).read_bytes();self.send_response(200);self.send_header('Content-Type',mime+'; charset=utf-8' if mime!='image/png' else mime);self.send_header('Content-Length',str(len(raw)));self.send_header('X-Content-Type-Options','nosniff');self.send_header('X-Frame-Options','DENY');self.send_header('Referrer-Policy','same-origin');self.end_headers();self.wfile.write(raw)
     def do_POST(self):self.write_request()
